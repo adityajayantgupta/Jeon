@@ -1,7 +1,4 @@
-//
-// Server count as current game
-//
 exports.run = (bot) => {
   console.log('Online!')
-  bot.user.setPresence({ game: { name: `on ${bot.guilds.size} servers`, type: 0 } })
+  bot.user.setPresence({ game: { name: `!!help for help`, type: 0 } })
 }
