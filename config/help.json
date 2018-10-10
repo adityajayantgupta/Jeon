@@ -1,0 +1,14 @@
+[{
+  "name": "Channel Mode",
+  "description": "Change the channel content mode to one of the following\n0 = None\n1 = Text only\n2 = Attachments only",
+  "command": "channelmode",
+  "syntax": "!!channelmode <mode>",
+  "example": "!!channelmode 1"
+},
+{
+  "name": "Prefix",
+  "description": "Change the bot's prefix",
+  "command": "prefix",
+  "syntax": "!!prefix <new_prefix>",
+  "example": "!!prefix ++"
+}]
