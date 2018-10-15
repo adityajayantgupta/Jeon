@@ -13,7 +13,7 @@ exports.run = (bot, message, [trigger]) => {
   message.channel.send({
     embed: {
       title: `Autoreact`,
-      description: `React with an emoji to set it for the trigger word`,
+      description: `React to this message with an emoji to set it for the trigger word`,
       color: parseInt(colors.blue),
       fields: [
         {
@@ -29,17 +29,21 @@ exports.run = (bot, message, [trigger]) => {
   }).then((message)=> {
     message.awaitReactions((reaction, user) => {
       return user.id === messageAuthorID
-    }, { max: 1, time: 6000, errors: ['time'] })
+    }, { max: 1, time: 60000, errors: ['time'] })
     .then(collected => {
         const reaction = collected.first()
+        console.log(reaction)
         const filepath = path.normalize(`${__dirname}/../data/${message.guild.id}.json`)
         let settings = JSON.parse(fs.readFileSync(filepath, 'utf-8'))
         let triggerIndex = settings.autoreact.findIndex(react => react.trigger === trigger)
+        console.log(reaction)
         if (triggerIndex > -1) {
-          settings.autoreact[triggerIndex].emoji = reaction.emoji.name
+          // Custom emojis have an id while default ones return null for some weird reason
+          settings.autoreact[triggerIndex].custom = reaction.emoji.id ? true : false
+          settings.autoreact[triggerIndex].emoji = reaction.emoji.id || reaction.emoji.name          
         } else {
           settings.autoreact.push({
-            trigger, emoji: reaction.emoji.name
+            trigger, emoji: reaction.emoji.id || reaction.emoji.name
           })
         }
         fs.writeFile(filepath, JSON.stringify(settings), (e) => {
@@ -50,7 +54,7 @@ exports.run = (bot, message, [trigger]) => {
             message.edit({
               embed: {
                 title: `Autoreact set successfully`,
-                description: `I will react with ${reaction.emoji.name} on "${trigger}"`,
+                description: `I will react with ${message.guild.emojis.get(reaction.emoji.id)} on "${trigger}"`,
                 color: parseInt(colors.green),
                 fields: [
                   {
@@ -59,7 +63,7 @@ exports.run = (bot, message, [trigger]) => {
                   },
                   {
                     name: 'Emoji',
-                    value: reaction.emoji.name
+                    value: reaction.emoji.toString()
                   }
                 ]
               }

@@ -6,6 +6,12 @@ exports.run = (message) => {
   let settings = JSON.parse(fs.readFileSync(filepath, 'utf-8'))
   let triggerIndex = settings.autoreact.findIndex(react => message.cleanContent.indexOf(react.trigger) > -1)
   if (triggerIndex > -1) {
-    message.react(settings.autoreact[triggerIndex].emoji)
+    let emoji = null
+    if (settings.autoreact[triggerIndex].custom) {
+      emoji = message.guild.emojis.get(settings.autoreact[triggerIndex].emoji)
+    } else {
+      emoji = settings.autoreact[triggerIndex].emoji
+    }
+    message.react(emoji)
   } else return
 }
