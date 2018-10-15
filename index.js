@@ -3,9 +3,9 @@ const fs = require('fs')
 const colors = require('./config/colors.json')
 const settingsTemplate = require('./config/settingsTemplate.json')
 const handleError = require('./handlers/errorHandler.js')
-require('dotenv').config()
 const channelHandler = require('./handlers/channelHandler.js')
 const reactionHandler = require('./handlers/reactionHandler.js')
+require('dotenv').config()
 
 const bot = new Discord.Client({
   autoReconnect: true

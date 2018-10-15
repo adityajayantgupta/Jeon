@@ -6,6 +6,13 @@
   "example": "!!channelmode 1"
 },
 {
+  "name": "Auto React",
+  "description": "Set the bot to react to a particular message with a particular emoji. Add a reaction to the embed that comes after you execute this command",
+  "command": "autoreact",
+  "syntax": "!!autoreact <message>",
+  "example": "!!autoreact welcome"
+},
+{
   "name": "Prefix",
   "description": "Change the bot's prefix",
   "command": "prefix",
