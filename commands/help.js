@@ -3,13 +3,37 @@ const colors = require('../config/colors.json')
 
 exports.run = (bot, message, helpFor) => {
   helpFor = helpFor.join(' ').toLowerCase()
-  if (!helpFor) {
+  if (helpFor) {
+    let helpIndex = helpArray.findIndex(help => help.command === helpFor)
+
+    if (helpIndex > -1) {
+      message.channel.send({
+        embed: {
+          color: parseInt(colors.blue),
+          description: `${helpArray[helpIndex].description}`,
+          author: {
+            name: `${helpArray[helpIndex].name}`
+          },
+          fields: [
+            {
+              'name': '__Syntax__',
+              'value': `\`\`\`${helpArray[helpIndex].syntax}\`\`\``
+            },
+            {
+              'name': '__Example__',
+              'value': `\`\`\`${helpArray[helpIndex].example}\`\`\``
+            }
+          ]
+        }
+      })
+    }
+  } else {
     let fields = []
-    for (let i = 0; i < helpArray.length - 1; i++) {
+    for (let help of helpArray) {
       fields.push({
-        name: `${parseInt(i) + parseInt(1)}. ${help[i].name}`,
-        value: `${help[i].description}
-                \nSyntax: \`\`\`${help[i].syntax}\`\`\` Example: \`\`\`${help[i].example}\`\`\`
+        name: `[${help.name}]`,
+        value: `${help.description}
+                \n__Syntax__: \`\`\`${help.syntax}\`\`\` __Example__: \`\`\`${help.example}\`\`\`
                `
       })
     }
@@ -31,29 +55,5 @@ exports.run = (bot, message, helpFor) => {
         })
       ).catch(e => { return message.reply(`Couldn't complete the operation due to ${e}`) })
   }
-  if (helpFor) {
-    let helpIndex = helpArray.findIndex(help => help.command === helpFor)
-
-    if (helpIndex > -1) {
-      message.channel.send({
-        embed: {
-          color: parseInt(colors.blue),
-          description: `${helpArray[helpIndex].description}`,
-          author: {
-            name: `${helpArray[helpIndex].name}`
-          },
-          fields: [
-            {
-              'name': 'Syntax',
-              'value': `\`\`\`${helpArray[helpIndex].syntax}\`\`\``
-            },
-            {
-              'name': 'Example',
-              'value': `\`\`\`${helpArray[helpIndex].example}\`\`\``
-            }
-          ]
-        }
-      })
-    }
-  }
+  
 }
