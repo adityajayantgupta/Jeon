@@ -12,7 +12,7 @@ exports.run = (bot, message, [trigger, savedTrigger]) => {
     if (!savedTrigger) return handleError.run(bot, message, `No trigger word provided`, `Please provide a keyword that has already been set to remove it.`)
 
     const filepath = path.normalize(`${__dirname}/../data/${message.guild.id}.json`)
-        let settings = JSON.parse(fs.readFileSync(filepath, 'utf-8'))
+    let settings = JSON.parse(fs.readFileSync(filepath, 'utf-8'))
     let triggerIndex = settings.autoreact.findIndex(react => react.trigger === savedTrigger)      
 
     if (triggerIndex > -1) {

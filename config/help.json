@@ -13,6 +13,13 @@
   "example": "!!autoreact welcome"
 },
 {
+  "name": "Remove Automatic Reaction",
+  "description": "Remove a previously set automatic reaction",
+  "command": "autoreact remove",
+  "syntax": "!!autoreact remove <trigger>",
+  "example": "!!autoreact remove welcome"
+},
+{
   "name": "Prefix",
   "description": "Change the bot's prefix",
   "command": "prefix",
