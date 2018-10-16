@@ -7,9 +7,9 @@ exports.run = (bot, message, helpFor) => {
     let fields = []
     for (let i = 0; i < helpArray.length - 1; i++) {
       fields.push({
-        name: `${parseInt(i) + parseInt(1)}. ${help[i].name}`,
-        value: `${help[i].description}
-                \nSyntax: \`\`\`${help[i].syntax}\`\`\` Example: \`\`\`${help[i].example}\`\`\`
+        name: `${parseInt(i) + parseInt(1)}. ${helpArray[i].name}`,
+        value: `${helpArray[i].description}
+                \nSyntax: \`\`\`${helpArray[i].syntax}\`\`\` Example: \`\`\`${helpArray[i].example}\`\`\`
                `
       })
     }
