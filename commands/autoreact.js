@@ -72,7 +72,9 @@ exports.run = (bot, message, [trigger, savedTrigger]) => {
           settings.autoreact[triggerIndex].emoji = reaction.emoji.id || reaction.emoji.name          
         } else {
           settings.autoreact.push({
-            trigger, emoji: reaction.emoji.id || reaction.emoji.name
+            trigger, 
+            emoji: reaction.emoji.id || reaction.emoji.name,
+            custom: reaction.emoji.id ? true : false
           })
         }
         fs.writeFile(filepath, JSON.stringify(settings), (e) => {

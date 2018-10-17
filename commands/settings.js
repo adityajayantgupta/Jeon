@@ -14,18 +14,18 @@ exports.run = (bot, message) => {
   let autoReacts = []
   for (let channel of settings.activatedChannels) {
     let channelData = message.guild.channels.find('id', channel.id)
-    channelModes.push(`__${channelData.name}__ -> ${channel.mode}`)
+    channelModes.push(`__${channelData.name}__ -> ${channel.mode}\n\n`)
   }
   for (let react of settings.autoreact) {
     let emoji = null
     if (react.custom) {
-      emoji = message.guild.emojis.get(react.emoji)
+      emojiData = message.guild.emojis.get(react.emoji)
+      emoji = emojiData.toString()
     } else {
       emoji = react.emoji
     }
-    autoReacts.push(`__${react.trigger}__ -> ${emoji}`)
+    autoReacts.push(`__${react.trigger}__ -> ${emoji}\n\n`)
   }
-  console.log(channelModes, autoReacts)
   if (channelModes.length <= 0) channelModes.push('No channel modes set')
   if (autoReacts.length <= 0) autoReacts.push('No automatic reactions set')
   return message.channel.send({
