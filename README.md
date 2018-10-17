@@ -1,6 +1,6 @@
 # ReactorBot
 
-A simple bot made for some very specific tasks.
+A simple bot made for some very specific tasks. [Invite link](https://discordapp.com/oauth2/authorize?client_id=498908956446687261&scope=bot&permissions=322624)
 
 ## Features
 
