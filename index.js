@@ -1,10 +1,10 @@
 const Discord = require('discord.js')
 const fs = require('fs')
-const colors = require('./config/colors.json')
-const settingsTemplate = require('./config/settingsTemplate.json')
 const handleError = require('./handlers/errorHandler.js')
 const channelHandler = require('./handlers/channelHandler.js')
 const reactionHandler = require('./handlers/reactionHandler.js')
+const settingsTemplate = require('./config/settingsTemplate.json')
+const colors = require('./config/colors.json')
 require('dotenv').config()
 
 const bot = new Discord.Client({
@@ -25,12 +25,16 @@ bot.on('message', message => {
 
   let prefix = process.env.PREFIX
   if (message.guild) {
-    let filepath = `${__dirname}/data/${message.guild.id}.json`
-    try {
+    let folderpath = `${__dirname}/data/`
+    let filename = `${message.guild.id}.json`
+    let filepath = folderpath + filename
+    if (!fs.existsSync(folderpath)) {
+      fs.mkdirSync(folderpath)
+    }
+    try {      
       let settings = JSON.parse(fs.readFileSync(filepath, 'utf8'))
       prefix = settings.prefix
     } catch (e) {
-      // IDK why but writing synchronusly doesn't work apparently.
       fs.writeFileSync(filepath, JSON.stringify(settingsTemplate))
       handleError.run(bot, message, `The bot prefix has been reset to \`${process.env.PREFIX}\` due to an internal error`, `The required server configuration data could not be found`)
       console.log(e)
