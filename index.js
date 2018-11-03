@@ -28,13 +28,11 @@ bot.on('message', message => {
     let folderpath = `${__dirname}/data/`
     let filename = `${message.guild.id}.json`
     let filepath = folderpath + filename
-    if (!fs.existsSync(folderpath)) {
-      fs.mkdirSync(folderpath)
-    }
-    try {      
+    try {
       let settings = JSON.parse(fs.readFileSync(filepath, 'utf8'))
       prefix = settings.prefix
     } catch (e) {
+      fs.mkdirSync(folderpath)
       fs.writeFileSync(filepath, JSON.stringify(settingsTemplate))
       handleError.run(bot, message, `The bot prefix has been reset to \`${process.env.PREFIX}\` due to an internal error`, `The required server configuration data could not be found`)
       console.log(e)
